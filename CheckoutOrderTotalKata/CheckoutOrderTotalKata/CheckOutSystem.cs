@@ -16,6 +16,10 @@ namespace CheckoutOrderTotalKata
             {
                 AvailableItems.Add(strItemName, dItemCost);
             }
+            else
+            {
+                throw new System.ArgumentException("Item Is Already In System", strItemName);
+            }
         }
 
         public void ScanItem(string strItemName, double dAmount = 1)

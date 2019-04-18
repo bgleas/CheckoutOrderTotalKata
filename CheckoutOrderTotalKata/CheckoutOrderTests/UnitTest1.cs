@@ -238,5 +238,15 @@ namespace CheckoutOrderTests
 
             Assert.AreEqual(5.50, checkOutSystem.GetTotal());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentException),
+        "Item Is Already In System")]
+        //Do not allow adding item already in system
+        public void AddItemThatHasAlreadyBeenAdded()
+        {
+            checkOutSystem.AddItem("Soup", 2.50);
+
+        }
     }
 }
