@@ -72,9 +72,21 @@ namespace CheckoutOrderTotalKata
             }
         }
 
-        public void AddSpecial(string itemName, int buyN, int getM, double discount)
+        // <Summary>
+        // BuyNItemsGetMAtXOffSpecial
+        // </Summary>
+        public void AddBuyNItemsGetMAtXOffSpecial(string itemName, int buyN, int getM, double discount)
         {
-            Special special = new Special(itemName, buyN, getM, discount);
+            Special special = new BuyNItemsGetMAtXOffSpecial(itemName, buyN, getM, discount);
+            CurrentSpecials.Add(special);
+        }
+
+        // <Summary>
+        // BuyNForXSpecial
+        // </Summary>
+        public void AddNForXSpecial(string itemName, int buyN, double costX)
+        {
+            Special special = new BuyNForXSpecial(itemName, buyN, costX);
             CurrentSpecials.Add(special);
         }
     }

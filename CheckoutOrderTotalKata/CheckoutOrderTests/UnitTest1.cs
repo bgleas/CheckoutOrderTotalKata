@@ -100,7 +100,7 @@ namespace CheckoutOrderTests
         [TestMethod]
         public void BuySpecialBuyNItemsGetMAtXOff()
         {
-            checkOutSystem.AddSpecial("Candy", 1, 1, 0.50);
+            checkOutSystem.AddBuyNItemsGetMAtXOffSpecial("Candy", 1, 1, 0.50);
 
             checkOutSystem.ScanItem("Candy");
             checkOutSystem.ScanItem("Candy");
@@ -112,7 +112,7 @@ namespace CheckoutOrderTests
         [TestMethod]
         public void Buy2IceCreamsGet1Free()
         {
-            checkOutSystem.AddSpecial("Ice Cream", 2, 1, 1.00);
+            checkOutSystem.AddBuyNItemsGetMAtXOffSpecial("Ice Cream", 2, 1, 1.00);
 
             checkOutSystem.ScanItem("Ice Cream");
             checkOutSystem.ScanItem("Ice Cream");
@@ -124,13 +124,42 @@ namespace CheckoutOrderTests
         [TestMethod]
         public void AddSpecialButDoNotMeetRequirements()
         {
-            checkOutSystem.AddSpecial("Ice Cream", 2, 1, 1.00);
+            checkOutSystem.AddBuyNItemsGetMAtXOffSpecial("Ice Cream", 2, 1, 1.00);
 
             checkOutSystem.ScanItem("Ice Cream");
             checkOutSystem.ScanItem("Candy");
             checkOutSystem.ScanItem("Ice Cream");
 
             Assert.AreEqual(9.75, checkOutSystem.GetTotal());
+        }
+
+        [TestMethod]
+        public void BuySpecialNForX()
+        {
+            checkOutSystem.AddNForXSpecial("Candy", 4, 2.00);
+
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+
+            Assert.AreEqual(2.75, checkOutSystem.GetTotal());
+        }
+
+        [TestMethod]
+        public void BuySpecialNForXForItemNotYetAvailable()
+        {
+            //Do not fail in case that item is eventually added to store
+            checkOutSystem.AddNForXSpecial("Reeses PB Cup", 4, 2.00);
+
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+
+            Assert.AreEqual(3.75, checkOutSystem.GetTotal());
         }
     }
 }
