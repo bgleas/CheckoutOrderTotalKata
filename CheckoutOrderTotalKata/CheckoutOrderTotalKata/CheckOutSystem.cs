@@ -8,8 +8,6 @@ namespace CheckoutOrderTotalKata
     {
         Dictionary<string, double> AvailableItems = new Dictionary<string, double>();
         Dictionary<string, CheckOutItem> CartItems = new Dictionary<string, CheckOutItem>();
-        //List<string> CartItems = new List<string>();
-
         
         public void AddItem(string strItemName, double dItemCost)
         {
@@ -44,6 +42,19 @@ namespace CheckoutOrderTotalKata
             }
 
             return total;
+        }
+
+        public void ApplyMarkDown(string strItemName, double dDiscount)
+        {
+            if (AvailableItems.ContainsKey(strItemName))
+            {
+                AvailableItems[strItemName] -= dDiscount;
+
+                if (CartItems.ContainsKey(strItemName))
+                {
+                    CartItems[strItemName].dCost -= dDiscount;
+                }
+            }
         }
     }
 }
