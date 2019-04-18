@@ -96,5 +96,41 @@ namespace CheckoutOrderTests
             checkOutSystem.ScanItem("Cadny");
             
         }
+
+        [TestMethod]
+        public void BuySpecialBuyNItemsGetMAtXOff()
+        {
+            checkOutSystem.AddSpecial("Candy", 1, 1, 0.50);
+
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+
+            Assert.AreEqual(1.875, checkOutSystem.GetTotal());
+        }
+
+        [TestMethod]
+        public void Buy2IceCreamsGet1Free()
+        {
+            checkOutSystem.AddSpecial("Ice Cream", 2, 1, 1.00);
+
+            checkOutSystem.ScanItem("Ice Cream");
+            checkOutSystem.ScanItem("Ice Cream");
+            checkOutSystem.ScanItem("Ice Cream");
+
+            Assert.AreEqual(9.00, checkOutSystem.GetTotal());
+        }
+
+        [TestMethod]
+        public void AddSpecialButDoNotMeetRequirements()
+        {
+            checkOutSystem.AddSpecial("Ice Cream", 2, 1, 1.00);
+
+            checkOutSystem.ScanItem("Ice Cream");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Ice Cream");
+
+            Assert.AreEqual(9.75, checkOutSystem.GetTotal());
+        }
     }
 }

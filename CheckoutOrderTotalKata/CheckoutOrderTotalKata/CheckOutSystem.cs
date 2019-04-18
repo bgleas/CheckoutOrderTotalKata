@@ -8,7 +8,8 @@ namespace CheckoutOrderTotalKata
     {
         Dictionary<string, double> AvailableItems = new Dictionary<string, double>();
         Dictionary<string, CheckOutItem> CartItems = new Dictionary<string, CheckOutItem>();
-        
+        List<Special> CurrentSpecials = new List<Special>();
+
         public void AddItem(string strItemName, double dItemCost)
         {
             if (!AvailableItems.ContainsKey(strItemName))
@@ -43,9 +44,16 @@ namespace CheckoutOrderTotalKata
         {
             double total = 0.0;
 
+            //Total inital cost of all items
             foreach (KeyValuePair<string, CheckOutItem> objItem in CartItems)
             {
                 total += objItem.Value.Cost();
+            }
+
+            //Subtract savings from each special
+            foreach (Special special in CurrentSpecials)
+            {
+                total -= special.calculate_savings(CartItems);
             }
 
             return total;
@@ -62,6 +70,12 @@ namespace CheckoutOrderTotalKata
                     CartItems[strItemName].dCost -= dDiscount;
                 }
             }
+        }
+
+        public void AddSpecial(string itemName, int buyN, int getM, double discount)
+        {
+            Special special = new Special(itemName, buyN, getM, discount);
+            CurrentSpecials.Add(special);
         }
     }
 }
