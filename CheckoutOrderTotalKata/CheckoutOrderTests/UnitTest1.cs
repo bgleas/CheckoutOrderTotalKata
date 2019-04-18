@@ -161,5 +161,46 @@ namespace CheckoutOrderTests
 
             Assert.AreEqual(3.75, checkOutSystem.GetTotal());
         }
+
+        [TestMethod]
+        public void BuySpecialNForXWithLimit()
+        {
+            checkOutSystem.AddNForXSpecial("Candy", 4, 2.00, 4);
+
+            //$2
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+
+            //$0.75 * 5 = $3.75
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+
+            Assert.AreEqual(5.75, checkOutSystem.GetTotal());
+        }
+
+
+        [TestMethod]
+        public void BuySpecialBuyNItemsGetMAtXOffWithLimit()
+        {
+            checkOutSystem.AddBuyNItemsGetMAtXOffSpecial("Candy", 2, 1, 1.0, 6.0);
+
+            checkOutSystem.ScanItem("Candy"); //$0.75
+            checkOutSystem.ScanItem("Candy"); //$0.75
+            checkOutSystem.ScanItem("Candy"); //$0.00 | $0.75 - 100% = 0
+
+            checkOutSystem.ScanItem("Candy"); //$0.75
+            checkOutSystem.ScanItem("Candy"); //$0.75
+            checkOutSystem.ScanItem("Candy"); //$0.00 | $0.75 - 100% = 0
+
+            checkOutSystem.ScanItem("Candy"); //$0.75
+
+            Assert.AreEqual(3.75, checkOutSystem.GetTotal());
+        }
+
     }
 }

@@ -75,18 +75,18 @@ namespace CheckoutOrderTotalKata
         // <Summary>
         // BuyNItemsGetMAtXOffSpecial
         // </Summary>
-        public void AddBuyNItemsGetMAtXOffSpecial(string itemName, int buyN, int getM, double discount)
+        public void AddBuyNItemsGetMAtXOffSpecial(string itemName, int buyN, int getM, double discount, double limit = 0)
         {
-            Special special = new BuyNItemsGetMAtXOffSpecial(itemName, buyN, getM, discount);
+            Special special = new BuyNItemsGetMAtXOffSpecial(itemName, buyN, getM, discount, limit);
             CurrentSpecials.Add(special);
         }
 
         // <Summary>
         // BuyNForXSpecial
         // </Summary>
-        public void AddNForXSpecial(string itemName, int buyN, double costX)
+        public void AddNForXSpecial(string itemName, int buyN, double costX, double limit = 0)
         {
-            Special special = new BuyNForXSpecial(itemName, buyN, costX);
+            Special special = new BuyNForXSpecial(itemName, buyN, costX, limit);
             CurrentSpecials.Add(special);
         }
     }

@@ -6,8 +6,20 @@ namespace CheckoutOrderTotalKata
 {
     internal abstract class Special
     {
+        public double dLimit = 0.0;
 
         public abstract double calculate_savings(Dictionary<string, CheckOutItem> availableItems);
+
+        public double get_limited_amount (double dAmount)
+        {
+            //max amount at limit, if there is a limit provided
+            if (dLimit > 0 && dAmount > dLimit)
+            {
+                return dLimit;
+            }
+
+            return dAmount;
+        }
 
     }
 
@@ -18,12 +30,13 @@ namespace CheckoutOrderTotalKata
         double dDiscount_item_amount;
         double dDiscount_amount;
 
-        public BuyNItemsGetMAtXOffSpecial(string itemName, int buyN, int getM, double discount)
+        public BuyNItemsGetMAtXOffSpecial(string itemName, int buyN, int getM, double discount, double limit = 0)
         {
             strItemName = itemName;
             dCriteria_Amount = buyN;
             dDiscount_item_amount = getM;
             dDiscount_amount = discount;
+            this.dLimit = limit;
         }
 
         public override double calculate_savings(Dictionary<string, CheckOutItem> availableItems)
@@ -36,25 +49,25 @@ namespace CheckoutOrderTotalKata
 
             double savings = 0.0;
             CheckOutItem item = availableItems[strItemName];
-            double amountOfItem = item.dAmount;
+            double dAmountOfItem = get_limited_amount(item.dAmount);
 
             //while having enough of item to satisfy criteria
-            while (amountOfItem >= dCriteria_Amount)
+            while (dAmountOfItem >= dCriteria_Amount)
             {
-                amountOfItem -= dCriteria_Amount;
+                dAmountOfItem -= dCriteria_Amount;
 
                 //if can take full advantage of discount
-                if (amountOfItem >= dDiscount_item_amount)
+                if (dAmountOfItem >= dDiscount_item_amount)
                 {
-                    amountOfItem -= dDiscount_item_amount;
+                    dAmountOfItem -= dDiscount_item_amount;
                     savings += (dDiscount_item_amount * item.dCost * dDiscount_amount);
                 }
                 //if only taking partial advantage of discount
                 else
                 {
-                    savings += (amountOfItem * item.dCost * dDiscount_amount);
+                    savings += (dAmountOfItem * item.dCost * dDiscount_amount);
 
-                    amountOfItem -= amountOfItem;
+                    dAmountOfItem -= dAmountOfItem;
                 }
             }
 
@@ -68,11 +81,12 @@ namespace CheckoutOrderTotalKata
         int nBuyAmount;
         double dSpecialCost;
 
-        public BuyNForXSpecial(string itemNm, int buyN, double costX)
+        public BuyNForXSpecial(string itemNm, int buyN, double costX, double limit = 0)
         {
             strItemName = itemNm;
             nBuyAmount = buyN;
             dSpecialCost = costX;
+            this.dLimit = limit;
         }
 
         public override double calculate_savings(Dictionary<string, CheckOutItem> availableItems)
@@ -86,11 +100,11 @@ namespace CheckoutOrderTotalKata
             double savings = 0.0;
 
             CheckOutItem item = availableItems[strItemName];
-            double amountOfItem = item.dAmount;
+            double dAmountOfItem = get_limited_amount(item.dAmount);
 
-            while (amountOfItem >= nBuyAmount)
+            while (dAmountOfItem >= nBuyAmount)
             {
-                amountOfItem -= nBuyAmount;
+                dAmountOfItem -= nBuyAmount;
                 savings += ((nBuyAmount * item.dCost) - dSpecialCost);
             }
 
