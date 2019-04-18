@@ -216,5 +216,27 @@ namespace CheckoutOrderTests
 
             Assert.AreEqual(2.25, checkOutSystem.GetTotal());
         }
+
+        [TestMethod]
+        public void BuyNGetMOfEqualorLesserValueForXOff()
+        {
+            checkOutSystem.AddSpecialBuyNgetMOfEqualOrLesserValueforXOff("Pears", 2.0, "Oranges", 0.50);
+
+            checkOutSystem.ScanItem("Pears", 2.0); //$3
+            checkOutSystem.ScanItem("Oranges", 3.0); //$3 - 50%
+
+            Assert.AreEqual(4.50, checkOutSystem.GetTotal());
+        }
+
+        [TestMethod]
+        public void BuyNGetMOfEqualorLesserValueForXOffANDBuyMoreThanDiscount()
+        {
+            checkOutSystem.AddSpecialBuyNgetMOfEqualOrLesserValueforXOff("Pears", 2.0, "Oranges", 0.50);
+
+            checkOutSystem.ScanItem("Pears", 2.0); //$3
+            checkOutSystem.ScanItem("Oranges", 4.0); //$4 - (50% of $3)
+
+            Assert.AreEqual(5.50, checkOutSystem.GetTotal());
+        }
     }
 }

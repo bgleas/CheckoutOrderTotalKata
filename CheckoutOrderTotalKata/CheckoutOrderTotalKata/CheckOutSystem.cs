@@ -90,6 +90,15 @@ namespace CheckoutOrderTotalKata
             CurrentSpecials.Add(special);
         }
 
+        // <Summary>
+        // Buy N get M Of Equal Or Lesser Value for X Off
+        // </Summary>
+        public void AddSpecialBuyNgetMOfEqualOrLesserValueforXOff(string itemNName, double itemNAmount, string itemMName, double itemMDiscount)
+        {
+            Special special = new BuyNgetMOfEqualOrLesserValueforXOff(itemNName, itemNAmount, itemMName, itemMDiscount);
+            CurrentSpecials.Add(special);
+        }
+
         public void RemoveScannedItem(string strItemName, double dAmount = 1)
         {
             if (CartItems.ContainsKey(strItemName))

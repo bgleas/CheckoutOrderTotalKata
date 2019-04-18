@@ -36,7 +36,7 @@ namespace CheckoutOrderTotalKata
             dCriteria_Amount = buyN;
             dDiscount_item_amount = getM;
             dDiscount_amount = discount;
-            this.dLimit = limit;
+            dLimit = limit;
         }
 
         public override double calculate_savings(Dictionary<string, CheckOutItem> availableItems)
@@ -86,7 +86,7 @@ namespace CheckoutOrderTotalKata
             strItemName = itemNm;
             nBuyAmount = buyN;
             dSpecialCost = costX;
-            this.dLimit = limit;
+            dLimit = limit;
         }
 
         public override double calculate_savings(Dictionary<string, CheckOutItem> availableItems)
@@ -107,6 +107,41 @@ namespace CheckoutOrderTotalKata
                 dAmountOfItem -= nBuyAmount;
                 savings += ((nBuyAmount * item.dCost) - dSpecialCost);
             }
+
+            return savings;
+        }
+
+    }
+
+    internal class BuyNgetMOfEqualOrLesserValueforXOff : Special
+    {
+        string strItemName_N;
+        string strItemName_M;
+        double nBuyAmount_N;
+        double nDiscount_X;
+
+        public BuyNgetMOfEqualOrLesserValueforXOff(string itemN, double amountN, string itemM, double discountX, double limit = 0)
+        {
+            strItemName_N = itemN;
+            strItemName_M = itemM;
+            nBuyAmount_N = amountN;
+            nDiscount_X = discountX;
+            dLimit = limit;
+        }
+
+        public override double calculate_savings(Dictionary<string, CheckOutItem> availableItems)
+        {
+            double savings = 0.0;
+
+            CheckOutItem itemN = availableItems[strItemName_N];
+            CheckOutItem itemM = availableItems[strItemName_M];
+
+            double nItemNTotalValue = itemN.dCost * nBuyAmount_N;
+            dLimit = nItemNTotalValue / itemM.dCost;
+
+            double amountOfItem = get_limited_amount(itemM.dAmount);
+
+            savings += (amountOfItem * itemM.dCost * nDiscount_X);
 
             return savings;
         }
