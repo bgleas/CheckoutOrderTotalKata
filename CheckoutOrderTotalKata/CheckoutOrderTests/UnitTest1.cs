@@ -202,5 +202,19 @@ namespace CheckoutOrderTests
             Assert.AreEqual(3.75, checkOutSystem.GetTotal());
         }
 
+        [TestMethod]
+        public void RemoveItemInvalidatingSpecial()
+        {
+            checkOutSystem.AddNForXSpecial("Candy", 4, 2.00);
+
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+
+            checkOutSystem.RemoveScannedItem("Candy");
+
+            Assert.AreEqual(2.25, checkOutSystem.GetTotal());
+        }
     }
 }

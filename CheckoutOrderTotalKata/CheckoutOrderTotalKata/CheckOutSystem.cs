@@ -73,21 +73,29 @@ namespace CheckoutOrderTotalKata
         }
 
         // <Summary>
-        // BuyNItemsGetMAtXOffSpecial
+        // Buy N Items Get M At X Off Special
         // </Summary>
-        public void AddBuyNItemsGetMAtXOffSpecial(string itemName, int buyN, int getM, double discount, double limit = 0)
+        public void AddBuyNItemsGetMAtXOffSpecial(string strItemName, int nBuyN, int ngetM, double dDiscount, double dLimit = 0)
         {
-            Special special = new BuyNItemsGetMAtXOffSpecial(itemName, buyN, getM, discount, limit);
+            Special special = new BuyNItemsGetMAtXOffSpecial(strItemName, nBuyN, ngetM, dDiscount, dLimit);
             CurrentSpecials.Add(special);
         }
 
         // <Summary>
-        // BuyNForXSpecial
+        // Buy N For X Special
         // </Summary>
-        public void AddNForXSpecial(string itemName, int buyN, double costX, double limit = 0)
+        public void AddNForXSpecial(string strItemName, int nBuyN, double dCostX, double dLimit = 0)
         {
-            Special special = new BuyNForXSpecial(itemName, buyN, costX, limit);
+            Special special = new BuyNForXSpecial(strItemName, nBuyN, dCostX, dLimit);
             CurrentSpecials.Add(special);
+        }
+
+        public void RemoveScannedItem(string strItemName, double dAmount = 1)
+        {
+            if (CartItems.ContainsKey(strItemName))
+            {
+                CartItems[strItemName].dAmount -= dAmount;
+            }
         }
     }
 }
