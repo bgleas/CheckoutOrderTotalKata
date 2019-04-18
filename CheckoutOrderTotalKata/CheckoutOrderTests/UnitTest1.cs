@@ -25,7 +25,7 @@ namespace CheckoutOrderTests
         [TestMethod]
         public void AcceptScannedItemAndHaveCorrectTotal()
         {
-            checkOutSystem.Scan("Candy");
+            checkOutSystem.ScanItem("Candy");
 
             Assert.AreEqual(0.75, checkOutSystem.GetTotal());
         }
@@ -33,12 +33,27 @@ namespace CheckoutOrderTests
         [TestMethod]
         public void AcceptMultipleScannedItemsAndHaveCorrectTotal()
         {
-            checkOutSystem.Scan("Candy");
-            checkOutSystem.Scan("Candy");
-            checkOutSystem.Scan("Ice Cream");
-            checkOutSystem.Scan("Soup");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Candy");
+            checkOutSystem.ScanItem("Ice Cream");
+            checkOutSystem.ScanItem("Soup");
 
             Assert.AreEqual(7.99, checkOutSystem.GetTotal());
+        }
+
+        [TestMethod]
+        public void BuyItemsByWeightAndByUnit()
+        {
+            checkOutSystem.ScanItem("Soup");
+            checkOutSystem.ScanItem("Soup");
+            checkOutSystem.ScanItem("Ice Cream");
+            checkOutSystem.ScanItem("Candy");
+
+            checkOutSystem.ScanItem("Apples", 2.23);
+            checkOutSystem.ScanItem("Pears", 1.07);
+
+            Assert.AreEqual(13.6225, checkOutSystem.GetTotal());
+
         }
     }
 }

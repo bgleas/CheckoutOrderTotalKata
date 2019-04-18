@@ -7,7 +7,8 @@ namespace CheckoutOrderTotalKata
     public class CheckOutSystem
     {
         Dictionary<string, double> AvailableItems = new Dictionary<string, double>();
-        List<string> CartItems = new List<string>();
+        Dictionary<string, CheckOutItem> CartItems = new Dictionary<string, CheckOutItem>();
+        //List<string> CartItems = new List<string>();
 
         
         public void AddItem(string strItemName, double dItemCost)
@@ -18,18 +19,28 @@ namespace CheckoutOrderTotalKata
             }
         }
 
-        public void Scan(string strItemName)
+        public void ScanItem(string strItemName, double dAmount = 1)
         {
-            CartItems.Add(strItemName);
+            if (CartItems.ContainsKey(strItemName))
+            {
+                //Increment number of items
+                CartItems[strItemName].dAmount += dAmount;
+            }
+            else
+            {
+                //Add first item to cart
+                CheckOutItem checkOutItem = new CheckOutItem(strItemName, dAmount, AvailableItems[strItemName]);
+                CartItems.Add(strItemName, checkOutItem);
+            }
         }
 
         public double GetTotal()
         {
             double total = 0.0;
 
-            foreach (string strItem in CartItems)
+            foreach (KeyValuePair<string, CheckOutItem> objItem in CartItems)
             {
-                total += AvailableItems[strItem];
+                total += objItem.Value.Cost();
             }
 
             return total;
