@@ -86,5 +86,15 @@ namespace CheckoutOrderTests
 
             Assert.AreEqual(6.548, checkOutSystem.GetTotal());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentException),
+        "Invalid Scan - Item not in system")]
+        public void ScanInvalidItemAndThrowError()
+        {
+            checkOutSystem.ScanItem("Soup");
+            checkOutSystem.ScanItem("Cadny");
+            
+        }
     }
 }

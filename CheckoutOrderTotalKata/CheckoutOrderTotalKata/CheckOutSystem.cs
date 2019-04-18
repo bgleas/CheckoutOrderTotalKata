@@ -26,9 +26,16 @@ namespace CheckoutOrderTotalKata
             }
             else
             {
-                //Add first item to cart
-                CheckOutItem checkOutItem = new CheckOutItem(strItemName, dAmount, AvailableItems[strItemName]);
-                CartItems.Add(strItemName, checkOutItem);
+                if (AvailableItems.ContainsKey(strItemName))
+                {
+                    //Add first item to cart
+                    CheckOutItem checkOutItem = new CheckOutItem(strItemName, dAmount, AvailableItems[strItemName]);
+                    CartItems.Add(strItemName, checkOutItem);
+                }
+                else
+                {
+                    throw new System.ArgumentException("Invalid Scan - Item not in system", strItemName);
+                }
             }
         }
 
