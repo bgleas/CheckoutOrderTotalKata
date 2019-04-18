@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutOrderTotalKata", "CheckoutOrderTotalKata\CheckoutOrderTotalKata.csproj", "{EE28F60F-27A6-4551-AC3E-9E7016783947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutOrderTests", "CheckoutOrderTests\CheckoutOrderTests.csproj", "{2826FD8E-AAC2-4560-8158-CAF267DBBD8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE28F60F-27A6-4551-AC3E-9E7016783947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE28F60F-27A6-4551-AC3E-9E7016783947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE28F60F-27A6-4551-AC3E-9E7016783947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE28F60F-27A6-4551-AC3E-9E7016783947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2826FD8E-AAC2-4560-8158-CAF267DBBD8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2826FD8E-AAC2-4560-8158-CAF267DBBD8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2826FD8E-AAC2-4560-8158-CAF267DBBD8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2826FD8E-AAC2-4560-8158-CAF267DBBD8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED260876-7F13-4A1F-A0EA-92CB35FCCE8D}
+	EndGlobalSection
+EndGlobal
